@@ -11,3 +11,11 @@
 label.error {
   display: inline-block;
 }
+
+.user-fav-sports.hidden {
+  display: none;
+}
+
+.user-fav-sports {
+  display: block;
+}
