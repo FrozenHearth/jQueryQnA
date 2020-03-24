@@ -14,104 +14,90 @@
   <body>
     <div class="container">
       <form>
-        <div class="col">
-          <div class="col-4">
-            <label for="name">What's your name</label>
+        <div class="row">
+          <div class="col-md">
+            <div class="col-4 name">
+              <label for="name">What's your name</label>
 
-            <input
-              id="name"
-              required
-              autocomplete="off"
-              type="text"
-              minlength="3"
-              maxlength="15"
-              class="form-control"
-              placeholder="Enter your name"
-              name="name"
-            />
-            <span class="error"></span>
-          </div>
+              <input
+                id="name"
+                required
+                autocomplete="off"
+                type="text"
+                minlength="3"
+                maxlength="15"
+                class="form-control"
+                placeholder="Enter your name"
+                name="name"
+              />
+            </div>
 
-          <div class="col-4">
-            <label for="favoriteColor">What's your favorite color?</label>
-            <input
-              class="form-control"
-              placeholder="Select a color"
-              list="colors"
-              autocomplete="off"
-              name="favoriteColor"
-            />
+            <div class="col-4 favoriteColor">
+              <label for="favoriteColor">What's your favorite color?</label>
+              <input
+                id="favoriteColor"
+                class="form-control"
+                placeholder="Select a color"
+                list="colors"
+                autocomplete="off"
+                name="favoriteColor"
+              />
 
-            <datalist id="colors">
-              <option value="Violet"></option>
-              <option value="Indigo"></option>
-              <option value="Blue"></option>
-              <option value="Green"></option>
-              <option value="Yellow"></option>
-              <option value="Orange"></option>
-              <option value="Red"></option>
-              <option value="Pink"></option>
-              <option value="Gray"></option>
-              <option value="Black"></option>
-              <option value="Purple"></option>
-              <option value="Aqua"></option>
-              <option value="Amber"></option>
-              <option value="Maroon"></option>
-              <option value="Brown"></option>
-            </datalist>
-          </div>
-          <div class="col-4">
-            <label for="pet">Do you have a pet?</label>
-            <label class="form-check-label" for="exampleRadios1">
-              Yes
-            </label>
-            <input
-              type="radio"
-              name="exampleRadios"
-              id="exampleRadios1"
-              value="option1"
-            />
-            <label class="form-check-label" for="exampleRadios1">
-              No
-            </label>
-            <input
-              type="radio"
-              name="exampleRadios"
-              id="exampleRadios1"
-              value="option2"
-            />
-            <label for="petName">What is your pets name?</label>
-            <input
-              type="text"
-              class="form-control"
-              autocomplete="off"
-              placeholder="Enter your pet's name"
-              name="petName"
-            />
-          </div>
-          <div class="col-4">
-            <label for="">What sports do you follow?</label>
-            <div id="sports-list-checkbox">
-              <!-- <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="inlineCheckbox1"
-                  value="option1"
-                />
-                <label class="form-check-label" for="inlineCheckbox1">1</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="inlineCheckbox2"
-                  value="option2"
-                />
-                <label class="form-check-label" for="inlineCheckbox2">2</label>
-              </div> -->
+              <datalist id="colors">
+                <option value="vi">Violet</option>
+                <option value="Indigo">Indigo</option>
+                <option value="Blue">Blue</option>
+                <option value="Green">Green</option>
+                <option value="Yellow">Yellow</option>
+                <option value="Orange">Orange</option>
+                <option value="Red">Red</option>
+                <option value="Pink">Pink</option>
+                <option value="Gray">Gray</option>
+                <option value="Black">Black</option>
+                <option value="Purple">Purple</option>
+                <option value="Aqua">Aqua</option>
+                <option value="Amber">Amber</option>
+                <option value="Maroon">Maroon</option>
+                <option value="Brown">Brown</option>
+              </datalist>
+            </div>
+            <div class="col-4">
+              <label for="pet">Do you have a pet?</label>
+              <label class="form-check-label" for="exampleRadios1">
+                Yes
+              </label>
+              <input
+                type="radio"
+                name="exampleRadios"
+                id="exampleRadios1"
+                value="option1"
+              />
+              <label class="form-check-label" for="exampleRadios1">
+                No
+              </label>
+              <input
+                type="radio"
+                name="exampleRadios"
+                id="exampleRadios1"
+                value="option2"
+              />
+              <label for="petName">What is your pets name?</label>
+              <input
+                type="text"
+                class="form-control"
+                autocomplete="off"
+                placeholder="Enter your pet's name"
+                name="petName"
+              />
+            </div>
+            <div class="col-4">
+              <label for="">What sports do you follow?</label>
+              <div id="sports-list-checkbox"></div>
             </div>
           </div>
+          <!-- <div class="col-md">
+            <p>Hi my name is Vishwanath</p>
+          </div> -->
         </div>
       </form>
     </div>
