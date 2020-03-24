@@ -20,7 +20,7 @@ $(document).ready(() => {
       } else {
         // if valid name
         $('.col-6.name').hide();
-        $('.col-md-6').append(`<div class="col-6 favoriteColor">
+        $('.col-md-6.first').append(`<div class="col-6 favoriteColor">
         <label for="favoriteColor">What's your favorite color?</label>
         <input
           id="favoriteColor"
@@ -52,11 +52,115 @@ $(document).ready(() => {
         $('#favoriteColor').keyup(e => {
           if (e.which === 13) {
             const favoriteColor = $('#favoriteColor').val();
+            $('.error').remove();
             if (favoriteColor.length) {
               $('.col-6.favoriteColor').hide();
+              $('.col-md-6.first').append(`<div class="col-6 pet">
+              <label for="pet">Do you have a pet?</label>
+              <label class="form-check-label" for="yesRadio">
+                Yes
+              </label>
+              <input
+                type="radio"
+                name="exampleRadios"
+                id="yesRadio"
+                value="yes"
+              />
+              <label class="form-check-label" for="noRadio">
+                No
+              </label>
+              <input
+                type="radio"
+                name="exampleRadios"
+                id="noRadio"
+                value="no"
+              />`);
               $('.user-name').after(
-                `<span>My favorite color is ${favoriteColor}.</span>`
+                `<p class="user-fav-color">My favorite color is ${favoriteColor}.</p>`
               );
+              $('#yesRadio').click(() => {
+                $('.col-6.sports').hide();
+                $('.col-6.pet').after(`<div class="col-6 petname">
+                <label for="petName">What is your pets name?</label>
+                <input
+                  type="text"
+                  id="petName"
+                  class="form-control"
+                  autocomplete="off"
+                  placeholder="Enter your pet's name"
+                  name="petName"
+                />
+              </div>`);
+                $('#petName').keypress(e => {
+                  if (e.which === 13) {
+                    const petName = $('#petName').val();
+                    const petNameRegex = /^[a-zA-Z ]{2,15}$/;
+                    const validPetName = petNameRegex.test(petName);
+                    $('.error').remove();
+                    if (petName.length < 3 || petName.length > 15) {
+                      $('#petName').after(
+                        '<span class="error">Pet name can only be 3-15 characters long!</span>'
+                      );
+                    } else if (!validPetName) {
+                      $('#petName').after(
+                        '<span class="error">Please enter a valid pet name!</span>'
+                      );
+                    } else {
+                      // Valid petname
+                      $('.user-fav-color').after(
+                        `<p>I have a pet, its name is ${petName}. </p>`
+                      );
+                    }
+                  }
+                });
+              });
+
+              $('#noRadio').click(() => {
+                $('.user-fav-color').after(
+                  '<p class="user-fav-sports hidden">I follow</p>'
+                );
+
+                $('.col-6.petname').hide();
+                $('.col-6.pet').after(`<div class="col-6 sports">
+                <label for="sports">What sports do you follow?</label>
+                <div id="sports-list-checkbox"></div>
+              </div>`);
+                $.get('http://api.myjson.com/bins/14sfwn', data => {
+                  for (let i = 0; i < data.length; i++) {
+                    $('#sports-list-checkbox').append(
+                      `<div id="sportsCheckbox" class="form-check form-check-inline ">
+                      <label id="sree" class="form-check-label" for="sportsCheckbox1">
+                      ${data[i].name} 
+                      <input name=${data[i].name} type="checkbox" id="sportsCheckbox1" class="form-check-input" 
+                      value="${data[i].code}">
+                      </label>
+                      </div>`
+                    );
+
+                    $(`input[name=${data[i].name}]`).click(() => {
+                      if ($(`input[name=${data[i].name}]`).prop('checked')) {
+                        const sportsList = $('#sportsCheckbox1:checked')
+                          .map(function() {
+                            return $(this).attr('name');
+                          })
+                          .get();
+
+                        const followedSports = sportsList
+                          .map(el => el)
+                          .join(', ')
+                          .replace(/,([^,]*)$/, ' and$1');
+
+                        $('.user-fav-sports.hidden').removeClass('hidden');
+
+                        $('.user-fav-sports')
+                          .html(`<span>${followedSports}</span>`)
+                          .prepend(`<span>I follow  </span>`)
+                          .append('.');
+                      }
+                    });
+                  }
+                });
+              });
             } else {
               $('#favoriteColor').after(
                 '<span class="error">Please select your favorite color!</span>'
@@ -64,28 +168,22 @@ $(document).ready(() => {
             }
           }
         });
-        $('#favoriteColor').blur(() => {
-          const favoriteColor = $('#favoriteColor').val();
-          if (!favoriteColor.length) {
-            $('#favoriteColor').after(
-              '<span class="error">Please select your favorite color!</span>'
-            );
-          } else if (favoriteColor.length) {
-            $('.error').remove();
-          }
-        });
+
         $('.col-md-6').after(
           `<div class="col-md-6 second"><p class="user-name">Hi my name is ${name}.</p></div>`
         );
       }
     }
   });
-
-  $.get('http://api.myjson.com/bins/14sfwn', data => {
-    for (let i = 0; i < data.length; i++) {
-      $('#sports-list-checkbox').append(
-        `<div class="form-check form-check-inline"><input type=\"checkbox\" class=\"form-check-input\" value=\"${data[i].code}\"> <label class=\"form-check-label\" for=\"inlineCheckbox1\">${data[i].name}</label></div>`
-      );
-    }
-  });
 });
+
+// $('#favoriteColor').blur(() => {
+//     const favoriteColor = $('#favoriteColor').val();
+//     if (!favoriteColor.length) {
+//       $('#favoriteColor').after(
+//         '<span class="error">Please select your favorite color!</span>'
+//       );
+//     } else if (favoriteColor.length) {
+//       $('.error').remove();
+//     }
+//   });
