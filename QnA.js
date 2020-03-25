@@ -76,8 +76,10 @@ $(document).ready(() => {
                 value="no"
               />`);
               $('.user-name').after(
-                `<p class="user-fav-color">My favorite color is ${favoriteColor}.</p>`
+                `<p class="user-fav-color">My favorite color is <span id="fav-color">${favoriteColor}</span>.</p>`
               );
+              $('#fav-color').css('color', `${favoriteColor}`);
+
               $('#yesRadio').click(() => {
                 $('.col-6.sports').hide();
                 $('.col-6.pet').after(`<div class="col-6 petname">
@@ -110,7 +112,10 @@ $(document).ready(() => {
                       $('.col-6.pet').hide();
                       $('.col-6.petname').hide();
                       $('.user-fav-color').after(
-                        `<p>I have a pet, its name is ${petName}. </p>`
+                        `<p class="user-fav-pet">I have a pet, its name is ${petName}. </p>`
+                      );
+                      $('.user-fav-pet').after(
+                        `<img class="thank-you" src="./images/thankyou.jpeg" width="300" height="300" />`
                       );
                     }
                   }
