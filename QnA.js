@@ -107,6 +107,8 @@ $(document).ready(() => {
                       );
                     } else {
                       // Valid petname
+                      $('.col-6.pet').hide();
+                      $('.col-6.petname').hide();
                       $('.user-fav-color').after(
                         `<p>I have a pet, its name is ${petName}. </p>`
                       );
@@ -137,9 +139,13 @@ $(document).ready(() => {
                       </div>`
                     );
 
+                    let sportsList;
+                    let removedSports;
+                    let filtered;
+
                     $(`input[name=${data[i].name}]`).click(() => {
                       if ($(`input[name=${data[i].name}]`).prop('checked')) {
-                        const sportsList = $('#sportsCheckbox1:checked')
+                        sportsList = $('#sportsCheckbox1:checked')
                           .map(function() {
                             return $(this).attr('name');
                           })
@@ -154,8 +160,37 @@ $(document).ready(() => {
 
                         $('.user-fav-sports')
                           .html(`<span>${followedSports}</span>`)
-                          .prepend(`<span>I follow  </span>`)
+                          .prepend(
+                            `<span>I don't have a pet yet. I follow  </span>`
+                          )
                           .append('.');
+                      } else {
+                        $('#sportsCheckbox1:not(:checked)').each(function() {
+                          removedSports = sportsList.filter(sport => {
+                            return $(this).attr('name') === sport;
+                          });
+                          filtered = sportsList.filter(
+                            i => !removedSports.includes(i)
+                          );
+                        });
+                        sportsList.pop(filtered);
+                        const followedSports = sportsList
+                          .map(el => el)
+                          .join(', ')
+                          .replace(/,([^,]*)$/, ' and$1');
+
+                        $('.user-fav-sports.hidden').removeClass('hidden');
+
+                        $('.user-fav-sports')
+                          .html(`<span>${followedSports}</span>`)
+                          .prepend(
+                            `<span>I don't have a pet yet. I follow  </span>`
+                          )
+                          .append('.');
+
+                        if (!followedSports) {
+                          $('.user-fav-sports').hide();
+                        }
                       }
                     });
                   }
