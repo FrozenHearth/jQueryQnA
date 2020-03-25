@@ -145,8 +145,8 @@ $(document).ready(() => {
                     );
 
                     let sportsList;
-                    let removedSports;
-                    let filtered;
+                    let unSelectedSports;
+                    let sportsToRemove;
 
                     $(`input[name=${data[i].name}]`).click(() => {
                       if ($(`input[name=${data[i].name}]`).prop('checked')) {
@@ -171,14 +171,14 @@ $(document).ready(() => {
                           .append('.');
                       } else {
                         $('#sportsCheckbox1:not(:checked)').each(function() {
-                          removedSports = sportsList.filter(sport => {
+                          unSelectedSports = sportsList.filter(sport => {
                             return $(this).attr('name') === sport;
                           });
-                          filtered = sportsList.filter(
-                            i => !removedSports.includes(i)
+                          sportsToRemove = sportsList.filter(
+                            i => !unSelectedSports.includes(i)
                           );
                         });
-                        sportsList.pop(filtered);
+                        sportsList.pop(sportsToRemove);
                         const followedSports = sportsList
                           .map(el => el)
                           .join(', ')
@@ -216,14 +216,3 @@ $(document).ready(() => {
     }
   });
 });
-
-// $('#favoriteColor').blur(() => {
-//     const favoriteColor = $('#favoriteColor').val();
-//     if (!favoriteColor.length) {
-//       $('#favoriteColor').after(
-//         '<span class="error">Please select your favorite color!</span>'
-//       );
-//     } else if (favoriteColor.length) {
-//       $('.error').remove();
-//     }
-//   });
