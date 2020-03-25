@@ -1,6 +1,5 @@
 .container {
   margin-top: 5em;
-  border: 1px solid blue;
 }
 
 .error {
@@ -18,4 +17,8 @@ label.error {
 
 .user-fav-sports {
   display: block;
+}
+
+.thank-you {
+  object-fit: cover;
 }
