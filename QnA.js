@@ -13,8 +13,6 @@ const config = {
               required
               autocomplete="off"
               type="text"
-              minlength="3"
-              maxlength="15"
               class="form-control"
               placeholder="Enter your name"
               name="name"
@@ -87,12 +85,12 @@ const config = {
                   </div>`,
   sportsList(sportsName, sportsCode) {
     return `<div id="sportsCheckbox" class="form-check form-check-inline ">
-  <label class="form-check-label" for="sportsCheckbox1">
-  ${sportsName} 
-  <input name=${sportsName} type="checkbox" id="sportsCheckbox1" class="form-check-input" 
-  value="${sportsCode}">
-  </label>
-</div>`;
+             <label class="form-check-label" for="sportsCheckbox1">
+              ${sportsName} 
+              <input name=${sportsName} type="checkbox" id="sportsCheckbox1" class="form-check-input" 
+              value="${sportsCode}">
+             </label>
+            </div>`;
   },
   secondColumn: `<div class="col-md-6 second"></div>`
 };
