@@ -107,5 +107,19 @@ $(document).ready(() => {
         $('.col-md-6.first').append(config.favColor);
       }
     }
+    $('#favoriteColor').keyup(e => {
+      if (e.which === 13) {
+        const favoriteColor = $('#favoriteColor').val();
+        $('.error').remove();
+        if (favoriteColor.length) {
+          $('.col-6.favoriteColor').hide();
+          $('.col-md-6.first').append(config.hasPet);
+          $('#yesRadio').click(() => {
+            $('.col-6.sports').hide();
+            $('.col-6.pet').after(config.petName);
+          });
+        }
+      }
+    });
   });
 });
