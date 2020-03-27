@@ -92,7 +92,22 @@ const config = {
              </label>
             </div>`;
   },
-  secondColumn: `<div class="col-md-6 second"></div>`
+  secondColumn: `<div class="col-md-6 second"></div>`,
+  thankYouImage: `<img class="thank-you" src="./images/thankyou.jpeg" width="300" height="300" />`
+};
+
+const validationConfig = {
+  name: {
+    value: '',
+    regex: '^[a-zA-Z ]{3,15}$'
+  },
+  favoriteColor: {
+    value: ''
+  },
+  petName: {
+    value: '',
+    regex: '^[a-zA-Z ]{2,15}$'
+  }
 };
 
 $(document).ready(() => {
@@ -101,12 +116,12 @@ $(document).ready(() => {
   $('#name').keypress(e => {
     if (e.which === 13) {
       e.preventDefault();
-      const name = $('#name').val();
-      const nameRegex = /^[a-zA-Z ]{3,15}$/;
-      const validName = nameRegex.test(name);
+      let { value, regex } = validationConfig.name;
+      value = $('#name').val();
+      const validName = new RegExp(regex).test(value);
       $('.error').remove();
 
-      if (name.length < 3 || name.length > 15) {
+      if (value.length < 3 || value.length > 15) {
         $('#name').after(config.error);
         $('.error').text('Name can only be between 3 and 15 characters long!');
       } else if (!validName) {
@@ -118,34 +133,35 @@ $(document).ready(() => {
         $('.col-md-6.first').append(config.favColor);
         $('.col-md-6').after(config.secondColumn);
         $('.col-md-6.second').append(
-          `<p class="user-name">Hi my name is ${name}.</p>`
+          `<p class="user-name">Hi my name is ${value}.</p>`
         );
       }
     }
     $('#favoriteColor').keyup(e => {
       if (e.which === 13) {
-        const favoriteColor = $('#favoriteColor').val();
+        let { value } = validationConfig.favoriteColor;
+        value = $('#favoriteColor').val();
         $('.error').remove();
-        if (favoriteColor.length) {
+        if (value.length) {
           $('.col-6.favoriteColor').hide();
           $('.col-md-6.first').append(config.hasPet);
 
           $('.user-name').after(
-            `<p class="user-fav-color">My favorite color is <span id="fav-color">${favoriteColor}</span>.</p>`
+            `<p class="user-fav-color">My favorite color is <span id="fav-color">${value}</span>.</p>`
           );
-          $('#fav-color').css('color', `${favoriteColor}`);
+          $('#fav-color').css('color', `${value}`);
 
           $('#yesRadio').click(() => {
             $('.col-6.sports').hide();
             $('.col-6.pet').after(config.petName);
             $('#petName').keypress(e => {
               if (e.which === 13) {
-                const petName = $('#petName').val();
-                const petNameRegex = /^[a-zA-Z ]{2,15}$/;
-                const validPetName = petNameRegex.test(petName);
+                let { value, regex } = validationConfig.petName;
+                value = $('#petName').val();
+                const validPetName = new RegExp(regex).test(value);
                 $('.error').remove();
 
-                if (petName.length < 3 || petName.length > 15) {
+                if (value.length < 3 || value.length > 15) {
                   $('#petName').after(config.error);
                   $('.error').text(
                     'Pet name can only be between 3-15 characters long'
@@ -158,11 +174,9 @@ $(document).ready(() => {
                   $('.col-6.pet').hide();
                   $('.col-6.petname').hide();
                   $('.user-fav-color').after(
-                    `<p class="user-fav-pet">I have a pet, its name is ${petName}. </p>`
+                    `<p class="user-fav-pet">I have a pet, its name is ${value}. </p>`
                   );
-                  $('.user-fav-pet').after(
-                    `<img class="thank-you" src="./images/thankyou.jpeg" width="300" height="300" />`
-                  );
+                  $('.user-fav-pet').after(config.thankYouImage);
                 }
               }
             });
