@@ -99,14 +99,18 @@ const config = {
 const validationConfig = {
   name: {
     value: '',
-    regex: '^[a-zA-Z ]{3,15}$'
+    regex: '^[a-zA-Z ]{3,15}$',
+    minLength: 3,
+    maxLength: 15
   },
   favoriteColor: {
     value: ''
   },
   petName: {
     value: '',
-    regex: '^[a-zA-Z ]{2,15}$'
+    regex: '^[a-zA-Z ]{2,15}$',
+    minLength: 3,
+    maxLength: 15
   }
 };
 
@@ -116,12 +120,12 @@ $(document).ready(() => {
   $('#name').keypress(e => {
     if (e.which === 13) {
       e.preventDefault();
-      let { value, regex } = validationConfig.name;
+      let { value, regex, minLength, maxLength } = validationConfig.name;
       value = $('#name').val();
       const validName = new RegExp(regex).test(value);
       $('.error').remove();
 
-      if (value.length < 3 || value.length > 15) {
+      if (value.length < minLength || value.length > maxLength) {
         $('#name').after(config.error);
         $('.error').text('Name can only be between 3 and 15 characters long!');
       } else if (!validName) {
@@ -156,12 +160,17 @@ $(document).ready(() => {
             $('.col-6.pet').after(config.petName);
             $('#petName').keypress(e => {
               if (e.which === 13) {
-                let { value, regex } = validationConfig.petName;
+                let {
+                  value,
+                  regex,
+                  minLength,
+                  maxLength
+                } = validationConfig.petName;
                 value = $('#petName').val();
                 const validPetName = new RegExp(regex).test(value);
                 $('.error').remove();
 
-                if (value.length < 3 || value.length > 15) {
+                if (value.length < minLength || value.length > maxLength) {
                   $('#petName').after(config.error);
                   $('.error').text(
                     'Pet name can only be between 3-15 characters long'
